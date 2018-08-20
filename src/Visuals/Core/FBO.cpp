@@ -11,9 +11,7 @@ FBO& FBO::operator[](int layer){
         case FULL: viewport = {1, 1}; return setLayer(full);
         case HALF: viewport = {0.5f, 0.5f}; return setLayer(_12);
         case QUARTER: viewport = {0.25f, 0.25f}; return setLayer(_14);
-        case 8: viewport = {0.125f, 0.125f}; return setLayer(_18);
-        case HALF_WIDE: viewport = {1, 0.5f}; return setLayer(_12_wide);
-        case SHADOWMAP: viewport = {1,1}; return setLayer(shadowmap);
+        case UI: viewport = {1,1}; return setLayer(full);
 
         default: error("FBO layer:", layer, "doesn't exists");
     }

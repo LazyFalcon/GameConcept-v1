@@ -4,7 +4,7 @@
 struct Texture;
 struct Window;
 
-enum {FULL=1, HALF=2, QUARTER=4, HALF_WIDE=12, SHADOWMAP=22};
+enum {SUPER=0, FULL=1, HALF=2, QUARTER=4, UI=12, SHADOWMAP=22};
 
 class FBO
 {
@@ -18,10 +18,9 @@ public:
     Window& m_window;
 
     unsigned int drawBuffers[5];
-    unsigned int shadowmap;
+    unsigned int super;
     unsigned int full;
     unsigned int _12;
-    unsigned int _12_wide;
     unsigned int _14;
     unsigned int _18;
     unsigned int currentFbo {0};

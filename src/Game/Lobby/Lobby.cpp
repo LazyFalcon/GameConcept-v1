@@ -253,10 +253,5 @@ void Lobby::update(float dt){
 void Lobby::updateWithHighPrecision(float dt){}
 void Lobby::renderProcedure(GraphicEngine& renderer){
     renderer.context->beginFrame();
-    renderer.context->setupFramebufferForGBufferGeneration();
-
-    renderer.context->tex.gbuffer.color.genMipmaps();
-
-    renderer.uiRender->render(m_ui.getToRender());
     renderer.context->endFrame();
 }
