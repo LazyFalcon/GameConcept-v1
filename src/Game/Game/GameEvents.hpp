@@ -1,7 +1,7 @@
 #pragma once
 #include "Events.hpp"
 
-struct StartLobby : public Event
+struct StartGame : public Event
 {
     bool handle(App &app);
 };

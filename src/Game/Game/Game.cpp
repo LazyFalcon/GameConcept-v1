@@ -3,8 +3,8 @@
 #include "GraphicEngine.hpp"
 #include "input-dispatcher.hpp"
 #include "input.hpp"
-#include "Lobby.hpp"
-#include "LobbyEvents.hpp"
+#include "Game.hpp"
+#include "GameEvents.hpp"
 #include "Logging.hpp"
 #include "Settings.hpp"
 #include "Texture.hpp"
@@ -13,13 +13,13 @@
 #include "ui.hpp"
 #include "ui-widgets.hpp"
 
-struct LobbyViewState
+struct GameViewState
 {
-    ~LobbyViewState() = default;
+    ~GameViewState() = default;
     virtual bool execute(Imgui& ui) = 0; // false means that state is finished
 };
 
-struct LobbySettings : public LobbyViewState
+struct GameSettings : public GameViewState
 {
 private:
     Settings& m_settings;
@@ -77,7 +77,7 @@ private:
     }
 
 public:
-    LobbySettings(Settings& settings) : m_settings(settings), m_windowSizes({{{"1600x900"}, {1600,900}}, {{"1920x1080"}, {1920,1080}}, {{"1920x1200"},{1920,1200}}}, {{"1600x900"}, {1600,900}}){}
+    GameSettings(Settings& settings) : m_settings(settings), m_windowSizes({{{"1600x900"}, {1600,900}}, {{"1920x1080"}, {1920,1080}}, {{"1920x1200"},{1920,1200}}}, {{"1600x900"}, {1600,900}}){}
     bool execute(Imgui& ui) override {
         if(m_firstRun){
             m_settingsBackup = m_settings;
@@ -130,7 +130,7 @@ public:
     }
 };
 
-struct LobbyUI
+struct GameUI
 {
 private:
     std::function<void(void)> m_callAfterTransition;
@@ -190,15 +190,15 @@ private:
 
     }
 
-    std::shared_ptr<LobbyViewState> m_currentState;
-    std::shared_ptr<LobbyViewState> m_settings;
+    std::shared_ptr<GameViewState> m_currentState;
+    std::shared_ptr<GameViewState> m_settings;
 
     float toSlide {45.f};
     float m_timer;
     float m_uiPos;
     bool m_playSelected {false};
 public:
-    LobbyUI(Settings& settings) : m_settings(std::make_shared<LobbySettings>(settings)){
+    GameUI(Settings& settings) : m_settings(std::make_shared<GameSettings>(settings)){
         fadeIn();
     }
     void run(Imgui& ui, float dt){
@@ -238,20 +238,20 @@ public:
 
 };
 
-Lobby::Lobby(Imgui& ui, InputDispatcher& inputDispatcher, Settings& settings): m_ui(ui), m_input(inputDispatcher.createNew("Lobby")){
-    m_view = std::make_unique<LobbyUI>(settings);
+Game::Game(Imgui& ui, InputDispatcher& inputDispatcher, Settings& settings): m_ui(ui), m_input(inputDispatcher.createNew("Game")){
+    m_view = std::make_unique<GameUI>(settings);
     m_input->activate();
 }
-Lobby::~Lobby(){
+Game::~Game(){
     m_input->deactivate();
 }
-void Lobby::update(float dt){
+void Game::update(float dt){
     // m_ui.update();
     m_view->run(m_ui, dt);
 
 }
-void Lobby::updateWithHighPrecision(float dt){}
-void Lobby::renderProcedure(GraphicEngine& renderer){
+void Game::updateWithHighPrecision(float dt){}
+void Game::renderProcedure(GraphicEngine& renderer){
     renderer.context->beginFrame();
     renderer.context->endFrame();
 }

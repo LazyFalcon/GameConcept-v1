@@ -3,12 +3,12 @@
 #include "App.hpp"
 #include "Audio/Audio.hpp"
 #include "DefaultResourcePaths.hpp"
-#include "LobbyEvents.hpp"
+#include "GameEvents.hpp"
 #include "Logging.hpp"
 #include "PerfTimers.hpp"
 
 void initialEvent(){
-    auto startGame = event<StartLobby>();
+    auto startGame = event<StartGame>();
 }
 
 int main(int argc, char** argv){

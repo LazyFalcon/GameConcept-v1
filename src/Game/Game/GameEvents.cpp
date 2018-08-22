@@ -1,18 +1,18 @@
 #include "core.hpp"
 #include "App.hpp"
-#include "Lobby.hpp"
-#include "LobbyEvents.hpp"
+#include "Game.hpp"
+#include "GameEvents.hpp"
 #include "Logging.hpp"
 #include "Window.hpp"
 
-bool StartLobby::handle(App &app){
-    info("[ Start Lobby ]");
+bool StartGame::handle(App &app){
+    info("[ Start Game ]");
 
-    auto lobby = std::make_shared<Lobby>(*app.imgui, *app.inputDispatcher, *app.settings);
+    auto game = std::make_shared<Game>(*app.imgui, *app.inputDispatcher, *app.settings);
 
     app.window->show();
     app.showMouse();
-    app.setGameState(lobby);
+    app.setGameState(game);
     return true;
 }
 

@@ -4,18 +4,18 @@
 class Imgui;
 class Input;
 class InputDispatcher;
-class LobbyUI;
+class GameUI;
 class Settings;
 
-class Lobby : public GameState
+class Game : public GameState
 {
 private:
     Imgui& m_ui;
     std::shared_ptr<Input> m_input;
-    std::unique_ptr<LobbyUI> m_view;
+    std::unique_ptr<GameUI> m_view;
 public:
-    Lobby(Imgui&, InputDispatcher&, Settings&);
-    ~Lobby();
+    Game(Imgui&, InputDispatcher&, Settings&);
+    ~Game();
     void update(float dt);
     void updateWithHighPrecision(float dt);
     void renderProcedure(GraphicEngine&);
